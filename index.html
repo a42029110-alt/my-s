@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Aktobe Fanshop - Магазин болельщиков</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter', sans-serif;background:#f5f5f5;color:#333;line-height:1.6;overflow-x:hidden;font-size:16px;}
+header{position:fixed;top:0;left:0;right:0;background:#fff;padding:12px 5%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 15px rgba(0,0,0,.1);z-index:1000}
+.logo{display:flex;align-items:center;gap:8px}
+.logo img{height:35px;border-radius:5px;}
+.logo span{font-size:18px;font-weight:700;color:#d32f2f;letter-spacing:1px;}
+nav{display:flex;gap:10px;}
+nav a{text-decoration:none;color:#333;font-weight:600;font-size:14px;cursor:pointer;transition:0.3s;padding:8px 10px;border-radius:5px;white-space:nowrap;}
+nav a:hover{color:#d32f2f;background:#f5f5f5;}
+.cart-icon{cursor:pointer;font-size:24px;position:relative;margin-left:10px;}
+.cart-count{position:absolute;top:-5px;right:-8px;background:#d32f2f;color:#fff;width:18px;height:18px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+.menu-toggle{display:none;font-size:24px;cursor:pointer;padding:5px;}
+
+.hero{height:60vh;background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(211, 47, 47, 0.7)),url('https://offside.kz/userfiles/2025/03/10/1000277234-1.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;padding:0 20px;margin-top:60px;}
+.hero h1{font-size:28px;margin-bottom:15px;text-transform:uppercase;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,0.5);}
+.hero p{font-size:18px;margin-bottom:25px;opacity:0.9;font-weight:600;}
+section{padding:50px 5%;}
+h2{text-align:center;font-size:24px;color:#d32f2f;margin-bottom:30px;text-transform:uppercase;position:relative;font-weight:700;}
+h2::after{content:'';width:50px;height:3px;background:#d32f2f;position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px;}
+.card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.06);transition:0.3s;display:flex;flex-direction:column;border:1px solid #eee;}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 15px rgba(0,0,0,.1);}
+.card img{width:100%;height:150px;object-fit:cover;background:#f4f4f4;display:block;}
+.card .info{padding:12px;text-align:center;flex-grow:1;}
+.price{font-size:16px;font-weight:700;color:#d32f2f;margin:8px 0;}
+.btn{background:#d32f2f;color:#fff;padding:12px;border:none;border-radius:25px;font-size:14px;cursor:pointer;width:100%;font-weight:700;transition:0.3s;display:inline-block;text-align:center;font-family:'Inter', sans-serif;margin-top:5px;}
+.btn:hover{background:#b71c1c;transform:scale(1.02);}
+.btn-black{background:#222;margin-top:5px;}
+.btn-secondary{background:#555;margin-top:5px;font-size:14px;padding:12px;}
+.btn-success{background:#2e7d32;margin-top:5px;}
+.btn:disabled{background:#ccc;cursor:not-allowed;transform:none;}
+
+.timer-container{background:linear-gradient(135deg,#d32f2f,#ff5252);color:white;padding:20px;border-radius:10px;text-align:center;margin:20px auto;max-width:100%;box-shadow:0 5px 15px rgba(211,47,47,0.3);}
+.timer-title{font-size:18px;font-weight:700;margin-bottom:10px;}
+.timer-display{font-size:32px;font-weight:800;font-family:'Courier New',monospace;background:rgba(255,255,255,0.1);padding:10px;border-radius:8px;margin:10px 0;letter-spacing:2px;}
+.timer-status{font-size:16px;margin-top:10px;opacity:0.9;}
+
+.about-box{background:#fff;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);text-align:center;max-width:100%;margin:0 auto;}
+.about-box p{font-size:16px;color:#555;line-height:1.6;}
+#contacts-section{background:#f1f1f1;}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:20px;}
+.contact-card{background:#fff;padding:20px;border-radius:10px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.05);}
+.contact-card b{display:block;font-size:16px;color:#d32f2f;margin-bottom:8px;}
+
+#map-section{padding:0;}
+.map-container{width:100%;height:300px;filter:grayscale(0.2);transition:0.3s;}
+.map-container:hover{filter:grayscale(0);}
+
+#reviews-section{background:#fff;}
+.review-form{max-width:100%;margin:0 auto 30px;background:#f9f9f9;padding:20px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.05);}
+.review-form input,.review-form textarea{width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:8px;font-size:16px;}
+.review-list{max-width:100%;margin:0 auto;}
+.review-item{background:#fff;padding:15px;border-radius:10px;margin-bottom:10px;box-shadow:0 2px 5px rgba(0,0,0,0.05);border-left:4px solid #d32f2f;}
+
+.history-section{background:#f9f9f9;}
+.history-table{width:100%;border-collapse:collapse;margin-top:20px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.05);font-size:12px;}
+.history-table th{background:#d32f2f;color:white;padding:10px;text-align:left;font-size:12px;}
+.history-table td{padding:8px;border-bottom:1px solid #eee;font-size:12px;}
+.history-table tr:last-child td{border-bottom:none;}
+.history-table tr:hover{background:#f5f5f5;}
+
+.address-form{max-width:100%;margin:20px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.05);}
+.form-group{margin-bottom:15px;}
+.form-group label{display:block;margin-bottom:5px;font-weight:600;color:#555;font-size:14px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:16px;}
+.form-row{display:grid;grid-template-columns:1fr;gap:10px;}
+.error-message{color:#d32f2f;font-size:12px;margin-top:3px;display:none;}
+.error-input{border-color:#d32f2f !important;}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);display:none;align-items:flex-start;justify-content:center;z-index:1000;padding:10px;overflow-y:auto;}
+.modal-content{background:#fff;padding:20px;border-radius:10px;width:100%;max-width:500px;text-align:center;position:relative;margin:10px 0;}
+.close{position:absolute;right:15px;top:10px;cursor:pointer;font-size:24px;color:#999;}
+.cart-section{display:none;}
+.cart-item{display:flex;justify-content:space-between;padding:12px;background:#fff;margin-bottom:8px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.05);border:1px solid #eee;}
+.toast{position:fixed;bottom:20px;right:20px;background:#4caf50;color:white;padding:12px 20px;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.2);z-index:2000;font-weight:600;display:none;animation:fadeIn 0.3s;font-size:14px;max-width:300px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);}}
+#timerSection{display:none;padding:40px 5%;background:linear-gradient(135deg,#f9f9f9,#fff);}
+.payment-buttons{display:flex;gap:10px;margin-top:20px;flex-direction:column;}
+.payment-buttons .btn{flex:1;}
+.remove-btn{background:none;border:none;color:#d32f2f;cursor:pointer;font-size:14px;font-weight:600;padding:3px 8px;}
+.remove-btn:hover{text-decoration:underline;}
+
+.payment-methods{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.payment-method{display:flex;align-items:center;gap:10px;padding:12px;border:2px solid #ddd;border-radius:8px;cursor:pointer;transition:0.3s;}
+.payment-method:hover{border-color:#d32f2f;}
+.payment-method.selected{border-color:#d32f2f;background:#f9f9f9;}
+.payment-icon{font-size:24px;}
+.kaspi-red{color:#e21a1a;}
+
+.card-form{display:none;margin-top:15px;padding:15px;background:#f9f9f9;border-radius:8px;}
+.card-form input{padding:12px;margin-bottom:10px;border:1px solid #ddd;border-radius:8px;width:100%;font-size:16px;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+.qr-container{display:none;margin-top:15px;text-align:center;padding:15px;background:#f9f9f9;border-radius:8px;}
+.qr-code{width:200px;height:200px;margin:0 auto 15px;background:#fff;border:1px solid #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#666;overflow:hidden;}
+.qr-code img{width:100%;height:100%;object-fit:contain;}
+
+.payment-status{display:none;margin-top:15px;padding:15px;border-radius:8px;text-align:center;}
+.payment-status.pending{background:#fff3e0;border:2px solid #ff9800;}
+.payment-status.success{background:#e8f5e9;border:2px solid #4caf50;}
+.payment-status-icon{font-size:48px;margin-bottom:10px;}
+.payment-status-title{font-size:18px;font-weight:bold;margin-bottom:5px;}
+.payment-status-text{font-size:14px;color:#666;}
+
+.qr-instructions{background:#f0f7ff;padding:12px;border-radius:8px;margin-top:15px;text-align:left;font-size:14px;}
+.qr-instructions ol{padding-left:20px;margin:10px 0;}
+.qr-instructions li{margin-bottom:5px;}
+
+@media (min-width: 768px) {
+    body{font-size:18px;}
+    .logo img{height:40px;}
+    .logo span{font-size:20px;}
+    nav a{font-size:16px;padding:10px 15px;}
+    .cart-icon{font-size:28px;}
+    .cart-count{width:20px;height:20px;font-size:12px;}
+    .hero h1{font-size:36px;}
+    .hero p{font-size:20px;}
+    section{padding:60px 8%;}
+    h2{font-size:28px;}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;}
+    .card img{height:180px;}
+    .btn{font-size:16px;padding:14px;}
+    .timer-display{font-size:40px;}
+    .form-row{grid-template-columns:1fr 1fr;}
+    .payment-buttons{flex-direction:row;}
+}
+
+@media (max-width: 480px) {
+    .menu-toggle{display:block;}
+    nav{position:fixed;top:60px;right:-100%;width:80%;height:calc(100vh - 60px);background:#fff;flex-direction:column;align-items:center;padding:20px;transition:0.3s;box-shadow:-5px 0 15px rgba(0,0,0,0.1);z-index:999;}
+    nav.active{right:0;}
+    nav a{width:100%;text-align:center;padding:15px;font-size:16px;}
+    .hero h1{font-size:24px;}
+    .hero p{font-size:16px;}
+    .grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo"><img src="file:///C:/Users/pc301.4/Downloads/%D0%9B%D0%9E%D0%93%D0%9E%D0%A2%D0%98%D0%9F.webp" alt="Aktobe FC Logo"><span>AKTOBE FANSHOP</span></div>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<nav id="mainNav">
+    <a href="#products" onclick="closeMenu()">Товары</a>
+    <a onclick="showCart(); closeMenu()">Корзина</a>
+    <a href="#history-section" onclick="closeMenu()">История</a>
+    <a href="#about-section" onclick="closeMenu()">О магазине</a>
+    <a href="#contacts-section" onclick="closeMenu()">Контакты</a>
+</nav>
+<div class="cart-icon" onclick="showCart()">🛒<span class="cart-count" id="cartCount">0</span></div>
+</header>
+
+<section class="hero">
+<div><h1>AKTOBE FANSHOP</h1><p>Официальный магазин болельщиков</p><button class="btn" style="width:auto;padding:14px 30px;" onclick="scrollToProducts()">Купить сейчас</button></div>
+</section>
+
+<section id="products"><h2>Популярные товары</h2><div class="grid" id="productGrid"></div></section>
+
+<section class="cart-section" id="cart">
+    <h2>Корзина</h2>
+    <div id="cartItems"></div>
+    <div style="text-align:right;margin-top:20px;background:#fff;padding:20px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.05);">
+        <h3 style="font-size:20px;">Итого: <span id="total" style="color:#d32f2f">0</span> ₸</h3><br>
+        <div class="payment-buttons">
+            <button class="btn" onclick="openAddressForm()">Оформить заказ</button>
+            <button class="btn btn-secondary" onclick="backToShop()">Назад</button>
+        </div>
+    </div>
+</section>
+
+<div id="timerSection">
+    <div class="timer-container">
+        <div class="timer-title">ВРЕМЯ ПОДГОТОВКИ ЗАКАЗА</div>
+        <div class="timer-display" id="timerDisplay">30:00</div>
+        <div class="timer-status" id="timerStatus">Ваш заказ готовится...</div>
+    </div>
+</div>
+
+<section id="history-section" class="history-section">
+    <h2>История заказов</h2>
+    <div style="max-width:100%;margin:0 auto;overflow-x:auto;">
+        <table class="history-table" id="orderHistory">
+            <thead>
+                <tr><th>Дата</th><th>Товары</th><th>Доставка</th><th>Сумма</th><th>Статус</th><th>Осталось</th></tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+        </table>
+        <div style="text-align:center;margin-top:20px;">
+            <p id="noHistoryText">Заказов пока нет</p>
+        </div>
+    </div>
+</section>
+
+<section id="about-section">
+    <h2>О магазине</h2>
+    <div class="about-box">
+        <p>Aktobe Fanshop — официальный брендовый магазин футбольного клуба Актобе. Мы предлагаем болельщикам клубную форму, аксессуары и уникальные сувениры.</p>
+    </div>
+</section>
+
+<section id="contacts-section">
+    <h2>Контактная информация</h2>
+    <div class="contact-grid">
+        <div class="contact-card"><b>Наш адрес</b><p>Актобе, пр. Абылай хана, 52<br>Центральный Стадион, 1 этаж</p></div>
+        <div class="contact-card"><b>Телефоны</b><p>+7 (702) 456 78 90<br>+7 (7132) 55 66 77</p></div>
+        <div class="contact-card"><b>Email</b><p>info@aktobe-fanshop.kz</p></div>
+        <div class="contact-card"><b>Время работы</b><p>Пн-Пт: 10:00-19:00<br>Сб: 11:00-17:00</p></div>
+    </div>
+</section>
+
+<section id="map-section">
+    <h2>Мы на карте</h2>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1274.5072260160707!2d57.15831395510866!3d50.29165809708963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x418223f56ade7315%3A0x15eecd56278449a7!2sFC%20Aktobe!5e0!3m2!1sru!2skz!4v1766547334216!5m2!1sru!2skz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<section id="reviews-section">
+    <h2>Отзывы</h2>
+    <div class="review-form">
+        <input type="text" id="revName" placeholder="Ваше имя">
+        <textarea id="revText" rows="3" placeholder="Ваш отзыв..."></textarea>
+        <button class="btn" onclick="addReview()">Отправить</button>
+    </div>
+    <div class="review-list" id="reviewList">
+        <div class="review-item"><b>Арман И.</b><p>Качество отличное! Быстрая доставка.</p></div>
+    </div>
+</section>
+
+<!-- Модальное окно адреса -->
+<div class="modal" id="addressModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddressForm()">×</span>
+        <h3 style="color:#d32f2f;margin-bottom:15px;">ДАННЫЕ ДОСТАВКИ</h3>
+        <div class="address-form">
+            <div class="form-group">
+                <label for="fullName">Полное имя *</label>
+                <input type="text" id="fullName" placeholder="Иванов Иван Иванович" oninput="validateNameField(this)">
+                <div class="error-message" id="nameError"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Номер телефона *</label>
+                    <input type="tel" id="phone" placeholder="+7 (777) 123-45-67" oninput="validatePhoneField(this)">
+                    <div class="error-message" id="phoneError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" placeholder="example@mail.ru" oninput="validateEmailField(this)">
+                    <div class="error-message" id="emailError"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="city">Город *</label>
+                <input type="text" id="city" value="Актобе" readonly style="background:#f5f5f5;">
+            </div>
+            <div class="form-group">
+                <label for="address">Адрес *</label>
+                <textarea id="address" rows="2" placeholder="Улица, дом, квартира" oninput="validateAddressField(this)"></textarea>
+                <div class="error-message" id="addressError"></div>
+            </div>
+            <div class="form-group">
+                <label for="deliveryMethod">Способ доставки *</label>
+                <select id="deliveryMethod" onchange="updateDeliveryInfo()">
+                    <option value="pickup">Самовывоз</option>
+                    <option value="courier">Доставка курьером (+500 ₸)</option>
+                    <option value="post">Почтой (+1000 ₸)</option>
+                </select>
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+                <h3 style="color:#d32f2f;font-size:20px;">Итого: <span id="totalWithDelivery">0</span> ₸</h3>
+            </div>
+            <div class="payment-buttons">
+                <button class="btn" onclick="validateAddressForm()" style="margin-top:15px;">ПЕРЕЙТИ К ОПЛАТЕ</button>
+                <button class="btn btn-secondary" onclick="closeAddressForm()" style="margin-top:10px;">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно оплаты -->
+<div class="modal" id="paymentModal">
+    <div class="modal-content">
+        <span class="close" onclick="closePayment()">×</span>
+        <h3 style="color:#d32f2f;margin-bottom:15px;">ОПЛАТА ЗАКАЗА</h3>
+        
+        <div style="text-align:left;margin:15px 0;padding:15px;background:#f9f9f9;border-radius:8px;">
+            <h4 style="margin-bottom:10px;">Детали заказа:</h4>
+            <div id="orderSummaryItems"></div>
+            <div style="border-top:1px dashed #ddd;padding-top:10px;margin-top:10px;">
+                <p><strong>Итого к оплате:</strong> <span id="finalTotalDisplay" style="color:#d32f2f;font-weight:700;">0</span> ₸</p>
+            </div>
+        </div>
+        
+        <div style="margin:20px 0;">
+            <h4 style="margin-bottom:10px;">Выберите способ оплаты:</h4>
+            <div class="payment-methods">
+                <div class="payment-method" onclick="selectPaymentMethod('kaspiCard')" id="kaspiCardOption">
+                    <div class="payment-icon kaspi-red">💳</div>
+                    <div><strong>Kaspi Карта</strong><br><small>Оплата банковской картой</small></div>
+                </div>
+                <div class="payment-method" onclick="selectPaymentMethod('kaspiQR')" id="kaspiQROption">
+                    <div class="payment-icon kaspi-red">📱</div>
+                    <div><strong>Kaspi QR</strong><br><small>Оплата по QR-коду</small></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Форма для Kaspi Карты -->
+        <div class="card-form" id="cardForm">
+            <div class="form-group">
+                <label>Номер карты *</label>
+                <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCardNumber(this)">
+                <div class="error-message" id="cardNumberError"></div>
+            </div>
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label>Срок действия *</label>
+                    <input type="text" id="cardExpiry" placeholder="ММ/ГГ" maxlength="5" oninput="formatExpiry(this)">
+                    <div class="error-message" id="cardExpiryError"></div>
+                </div>
+                <div class="form-group">
+                    <label>CVV *</label>
+                    <input type="password" id="cardCVV" placeholder="123" maxlength="3">
+                    <div class="error-message" id="cardCVVError"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Имя на карте *</label>
+                <input type="text" id="cardName" placeholder="IVAN IVANOV" oninput="validateCardNameField(this)">
+                <div class="error-message" id="cardNameError"></div>
+            </div>
+        </div>
+        
+        <!-- Контейнер для QR кода -->
+        <div class="qr-container" id="qrContainer">
+            <h4 style="margin-bottom:15px;color:#e21a1a;">Оплата Kaspi QR</h4>
+            <div class="qr-code" id="qrCode">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://kaspi.kz/payment/aktobefanshop/order_001&color=e21a1a&bgcolor=ffffff" alt="Kaspi QR Code">
+            </div>
+            <div class="qr-instructions">
+                <strong>Как оплатить:</strong>
+                <ol>
+                    <li>Откройте приложение Kaspi</li>
+                    <li>Нажмите "Оплатить по QR-коду"</li>
+                    <li>Наведите камеру на QR-код</li>
+                    <li>Подтвердите оплату</li>
+                </ol>
+            </div>
+            <p style="font-size:14px;color:#666;margin-top:10px;">
+                Сумма к оплате: <strong id="qrAmount">0 ₸</strong>
+            </p>
+        </div>
+        
+        <!-- Статус ожидания оплаты -->
+        <div class="payment-status pending" id="paymentPendingStatus">
+            <div class="payment-status-icon">⏳</div>
+            <div class="payment-status-title">Ожидание оплаты</div>
+            <div class="payment-status-text">Пожалуйста, завершите оплату выбранным способом</div>
+        </div>
+        
+        <!-- Статус успешной оплаты -->
+        <div class="payment-status success" id="paymentSuccessStatus">
+            <div class="payment-status-icon">✅</div>
+            <div class="payment-status-title">Оплата прошла успешно!</div>
+            <div class="payment-status-text">Ваш заказ №<span id="orderNumberDisplay"></span> принят</div>
+        </div>
+        
+        <div class="payment-buttons">
+            <button class="btn btn-success" onclick="processPayment()" style="margin-top:10px;display:none;" id="payButton">ОПЛАТИТЬ</button>
+            <button class="btn btn-secondary" onclick="backToAddressForm()" style="margin-top:10px;">Назад</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let cart = [];
+let orderHistory = [];
+let currentOrderData = null;
+let activeTimers = {};
+let selectedPaymentMethod = null;
+let currentOrderNumber = null;
+
+const products = [
+    {id:1, name:'Домашняя форма 2025', price:29900, img:'file:///C:/Users/pc301.4/Downloads/%D0%94%D0%9E%D0%9C%D0%90%D0%A8%D0%9D%D0%98%D0%99%20%D0%A4%D0%9E%D0%A2%D0%9E.jpg'},
+    {id:2, name:'Гостевая форма', price:29900, img:'file:///C:/Users/pc301.4/Downloads/%D0%B3%D0%BE%D1%81%D1%82%D0%B5%D0%B2%D0%BE%D0%B9%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0.webp'},
+    {id:3, name:'Официальный шарф', price:5900, img:'file:///C:/Users/pc301.4/Downloads/%D0%A4%D0%9E%D0%A0%D0%9C%D0%90%20%D0%92%D0%90%D0%A0%D0%90%D0%A2%D0%90%D0%A0%D0%AC.jpg'},
+    {id:4, name:'Кепка', price:7900, img:'file:///C:/Users/pc301.4/Downloads/%D0%9A%D0%95%D0%9F%D0%9A%D0%90%20%D0%A4%D0%9A%20%D0%90%D0%9A%D0%A2%D0%9E%D0%91%D0%95.jfif'},
+    {id:5, name:'Мяч', price:11900, img:'file:///C:/Users/pc301.4/Downloads/%D0%9C%D0%AF%D0%A7%20%D0%A4%D0%9A%20%D0%90%D0%9A%D0%A2%D0%9E%D0%91%D0%95.jpg'},
+    {id:6, name:'Рюкзак', price:9900, img:'file:///C:/Users/pc301.4/Downloads/%D0%A0%D0%AE%D0%9A%D0%97%D0%90%D0%9A.jfif'},
+    {id:7, name:'Ветровка', price:14900, img:'file:///C:/Users/pc301.4/Downloads/%D0%92%D0%95%D0%A2%D0%A0%D0%9E%D0%92%D0%9A%D0%90%20%D0%A4%D0%9A%20%D0%90%D0%9A%D0%A2%D0%9E%D0%91%D0%95.jpg'},
+    {id:8, name:'Флаг', price:4900, img:'file:///C:/Users/pc301.4/Downloads/%D0%A4%D0%9B%D0%90%D0%93%20%D0%A4%D0%9A%20%D0%90%D0%9A%D0%A2%D0%9E%D0%91%D0%95.webp'}
+];
+
+function toggleMenu() {
+    document.getElementById('mainNav').classList.toggle('active');
+}
+
+function closeMenu() {
+    document.getElementById('mainNav').classList.remove('active');
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.display = 'block';
+    toast.style.background = type === 'success' ? '#4caf50' : '#d32f2f';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}
+
+function validateNameField(input) {
+    const errorElement = document.getElementById('nameError');
+    const value = input.value.trim();
+    
+    if (value.length === 0) {
+        errorElement.textContent = 'Введите ваше имя!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (value.length < 2) {
+        errorElement.textContent = 'Имя должно содержать минимум 2 символа!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (/[0-9]/.test(value)) {
+        errorElement.textContent = 'Имя не должно содержать цифры!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        input.classList.remove('error-input');
+        return true;
+    }
+}
+
+function validatePhoneField(input) {
+    const errorElement = document.getElementById('phoneError');
+    const value = input.value.trim();
+    const phoneDigits = value.replace(/\D/g, '');
+    
+    if (value.length === 0) {
+        errorElement.textContent = 'Введите номер телефона!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (phoneDigits.length < 10) {
+        errorElement.textContent = 'Номер телефона должен содержать минимум 10 цифр!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        input.classList.remove('error-input');
+        return true;
+    }
+}
+
+function validateEmailField(input) {
+    const errorElement = document.getElementById('emailError');
+    const value = input.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (value.length === 0) {
+        errorElement.textContent = 'Введите email!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (!emailRegex.test(value)) {
+        errorElement.textContent = 'Введите корректный email!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        input.classList.remove('error-input');
+        return true;
+    }
+}
+
+function validateAddressField(input) {
+    const errorElement = document.getElementById('addressError');
+    const value = input.value.trim();
+    
+    if (value.length === 0) {
+        errorElement.textContent = 'Введите адрес!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (value.length < 5) {
+        errorElement.textContent = 'Адрес должен содержать минимум 5 символов!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (/^\d+$/.test(value.replace(/\s/g, ''))) {
+        errorElement.textContent = 'Адрес не может состоять только из цифр!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        input.classList.remove('error-input');
+        return true;
+    }
+}
+
+function validateCardNameField(input) {
+    const errorElement = document.getElementById('cardNameError');
+    const value = input.value.trim().toUpperCase();
+    
+    // Автоматически преобразуем в верхний регистр
+    input.value = value;
+    
+    if (value.length === 0) {
+        errorElement.textContent = 'Введите имя на карте!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (value.length < 2) {
+        errorElement.textContent = 'Имя должно содержать минимум 2 символа!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (/[0-9]/.test(value)) {
+        errorElement.textContent = 'Имя не должно содержать цифры!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else if (/[а-яё]/.test(value.toLowerCase())) {
+        errorElement.textContent = 'Имя должно быть на латинице!';
+        errorElement.style.display = 'block';
+        input.classList.add('error-input');
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        input.classList.remove('error-input');
+        return true;
+    }
+}
+
+function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+    products.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'card';
+        productElement.innerHTML = `
+            <img src="${product.img}" alt="${product.name}">
+            <div class="info">
+                <h3>${product.name}</h3>
+                <p class="price">${product.price.toLocaleString()} ₸</p>
+                <button class="btn" onclick="addToCart(${product.id})">В корзину</button>
+                <button class="btn btn-black" onclick="buyNow(${product.id})">Купить сейчас</button>
+            </div>`;
+        grid.appendChild(productElement);
+    });
+}
+
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({id: product.id, name: product.name, price: product.price, quantity: 1});
+    }
+    
+    updateCart();
+    showToast('Товар добавлен в корзину!');
+}
+
+function buyNow(productId) {
+    cart = [];
+    addToCart(productId);
+    showCart();
+    setTimeout(() => {
+        openAddressForm();
+    }, 300);
+}
+
+function showCart() {
+    closeMenu();
+    document.getElementById('products').style.display = 'none';
+    document.getElementById('cart').style.display = 'block';
+    document.getElementById('history-section').style.display = 'none';
+    document.getElementById('about-section').style.display = 'none';
+    document.getElementById('contacts-section').style.display = 'none';
+    document.getElementById('map-section').style.display = 'none';
+    document.getElementById('reviews-section').style.display = 'none';
+    document.getElementById('timerSection').style.display = 'none';
+    updateCart();
+}
+
+function backToShop() {
+    document.getElementById('products').style.display = 'block';
+    document.getElementById('cart').style.display = 'none';
+    document.getElementById('history-section').style.display = 'block';
+    document.getElementById('about-section').style.display = 'block';
+    document.getElementById('contacts-section').style.display = 'block';
+    document.getElementById('map-section').style.display = 'block';
+    document.getElementById('reviews-section').style.display = 'block';
+    const hasActiveOrder = orderHistory.some(order => order.status === 'preparing');
+    if (hasActiveOrder) {
+        document.getElementById('timerSection').style.display = 'block';
+    }
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+    const total = document.getElementById('total');
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align:center;padding:20px;">Корзина пуста!</p>';
+        cartCount.textContent = '0';
+        total.textContent = '0';
+        return;
+    }
+    
+    let totalPrice = 0;
+    let itemsHtml = '';
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        totalPrice += itemTotal;
+        itemsHtml += `
+            <div class="cart-item">
+                <div>
+                    <h4>${item.name}</h4>
+                    <p>${item.price.toLocaleString()} ₸ × ${item.quantity}</p>
+                </div>
+                <div style="text-align:right;">
+                    <p style="font-weight:700;">${itemTotal.toLocaleString()} ₸</p>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">Удалить</button>
+                </div>
+            </div>`;
+    });
+    
+    cartItems.innerHTML = itemsHtml;
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    total.textContent = totalPrice.toLocaleString();
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCart();
+}
+
+function scrollToProducts() {
+    document.getElementById('products').scrollIntoView({behavior: 'smooth'});
+}
+
+function openAddressForm() {
+    if (cart.length === 0) {
+        showToast('Корзина пуста!', 'error');
+        return;
+    }
+    
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryMethod = document.getElementById('deliveryMethod').value;
+    const deliveryCost = deliveryMethod === 'courier' ? 500 : deliveryMethod === 'post' ? 1000 : 0;
+    const totalWithDelivery = totalPrice + deliveryCost;
+    
+    document.getElementById('totalWithDelivery').textContent = totalWithDelivery.toLocaleString();
+    document.getElementById('addressModal').style.display = 'flex';
+}
+
+function closeAddressForm() {
+    document.getElementById('addressModal').style.display = 'none';
+}
+
+function updateDeliveryInfo() {
+    const deliveryMethod = document.getElementById('deliveryMethod').value;
+    const totalWithDelivery = document.getElementById('totalWithDelivery');
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryCost = deliveryMethod === 'courier' ? 500 : deliveryMethod === 'post' ? 1000 : 0;
+    const newTotal = totalPrice + deliveryCost;
+    
+    totalWithDelivery.textContent = newTotal.toLocaleString();
+}
+
+function validateAddressForm() {
+    const nameValid = validateNameField(document.getElementById('fullName'));
+    const phoneValid = validatePhoneField(document.getElementById('phone'));
+    const emailValid = validateEmailField(document.getElementById('email'));
+    const addressValid = validateAddressField(document.getElementById('address'));
+    
+    if (nameValid && phoneValid && emailValid && addressValid) {
+        openPaymentForm();
+    } else {
+        showToast('Пожалуйста, исправьте ошибки в форме!', 'error');
+    }
+}
+
+function formatCardNumber(input) {
+    let value = input.value.replace(/\s/g, '').replace(/\D/g, '');
+    let formatted = '';
+    
+    for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+            formatted += ' ';
+        }
+        formatted += value[i];
+    }
+    
+    input.value = formatted.substring(0, 19);
+}
+
+function formatExpiry(input) {
+    let value = input.value.replace(/\D/g, '');
+    
+    if (value.length >= 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    }
+    
+    input.value = value.substring(0, 5);
+}
+
+function selectPaymentMethod(method) {
+    selectedPaymentMethod = method;
+    
+    // Сброс выбора
+    document.getElementById('kaspiCardOption').classList.remove('selected');
+    document.getElementById('kaspiQROption').classList.remove('selected');
+    
+    // Скрыть все формы и статусы
+    document.getElementById('cardForm').style.display = 'none';
+    document.getElementById('qrContainer').style.display = 'none';
+    document.getElementById('paymentPendingStatus').style.display = 'none';
+    document.getElementById('paymentSuccessStatus').style.display = 'none';
+    
+    // Сброс ошибок карты
+    document.getElementById('cardNumberError').style.display = 'none';
+    document.getElementById('cardExpiryError').style.display = 'none';
+    document.getElementById('cardCVVError').style.display = 'none';
+    document.getElementById('cardNameError').style.display = 'none';
+    
+    document.getElementById('cardNumber').classList.remove('error-input');
+    document.getElementById('cardExpiry').classList.remove('error-input');
+    document.getElementById('cardCVV').classList.remove('error-input');
+    document.getElementById('cardName').classList.remove('error-input');
+    
+    // Показать выбранную форму
+    if (method === 'kaspiCard') {
+        document.getElementById('kaspiCardOption').classList.add('selected');
+        document.getElementById('cardForm').style.display = 'block';
+        document.getElementById('payButton').style.display = 'block';
+    } else if (method === 'kaspiQR') {
+        document.getElementById('kaspiQROption').classList.add('selected');
+        document.getElementById('qrContainer').style.display = 'block';
+        document.getElementById('payButton').style.display = 'block';
+        
+        // Показать сумму в QR контейнере
+        const total = document.getElementById('finalTotalDisplay').textContent;
+        document.getElementById('qrAmount').textContent = total + ' ₸';
+    }
+}
+
+function validateCardForm() {
+    const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+    const cardExpiry = document.getElementById('cardExpiry').value;
+    const cardCVV = document.getElementById('cardCVV').value;
+    const cardName = document.getElementById('cardName').value.trim();
+    
+    if (!cardNumber || cardNumber.length !== 16) {
+        showToast('Введите корректный номер карты (16 цифр)', 'error');
+        return false;
+    }
+    
+    if (!cardExpiry || !/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+        showToast('Введите срок действия карты (ММ/ГГ)', 'error');
+        return false;
+    }
+    
+    if (!cardCVV || cardCVV.length !== 3) {
+        showToast('Введите CVV код (3 цифры)', 'error');
+        return false;
+    }
+    
+    if (!cardName || cardName.length < 2) {
+        showToast('Введите имя на карте', 'error');
+        return false;
+    }
+    
+    if (/[0-9]/.test(cardName)) {
+        showToast('Имя на карте не должно содержать цифры!', 'error');
+        return false;
+    }
+    
+    return true;
+}
+
+function openPaymentForm() {
+    closeAddressForm();
+    
+    currentOrderData = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        deliveryMethod: document.getElementById('deliveryMethod').value
+    };
+    
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryCost = currentOrderData.deliveryMethod === 'courier' ? 500 : 
+                        currentOrderData.deliveryMethod === 'post' ? 1000 : 0;
+    const totalWithDelivery = totalPrice + deliveryCost;
+    
+    document.getElementById('finalTotalDisplay').textContent = totalWithDelivery.toLocaleString();
+    
+    const orderSummaryItems = document.getElementById('orderSummaryItems');
+    let itemsHtml = '';
+    
+    cart.forEach(item => {
+        itemsHtml += `<p>${item.name} × ${item.quantity} = ${(item.price * item.quantity).toLocaleString()} ₸</p>`;
+    });
+    
+    if (deliveryCost > 0) {
+        itemsHtml += `<p><strong>Доставка:</strong> ${deliveryCost.toLocaleString()} ₸</p>`;
+    }
+    
+    orderSummaryItems.innerHTML = itemsHtml;
+    
+    // Сброс выбора оплаты
+    selectedPaymentMethod = null;
+    document.getElementById('payButton').style.display = 'none';
+    document.getElementById('kaspiCardOption').classList.remove('selected');
+    document.getElementById('kaspiQROption').classList.remove('selected');
+    document.getElementById('cardForm').style.display = 'none';
+    document.getElementById('qrContainer').style.display = 'none';
+    document.getElementById('paymentPendingStatus').style.display = 'none';
+    document.getElementById('paymentSuccessStatus').style.display = 'none';
+    
+    document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function closePayment() {
+    document.getElementById('paymentModal').style.display = 'none';
+}
+
+function backToAddressForm() {
+    closePayment();
+    openAddressForm();
+}
+
+function processPayment() {
+    if (!selectedPaymentMethod) {
+        showToast('Выберите способ оплаты!', 'error');
+        return;
+    }
+    
+    if (selectedPaymentMethod === 'kaspiCard') {
+        if (!validateCardForm()) {
+            return;
+        }
+        
+        // Блокируем кнопку
+        document.getElementById('payButton').disabled = true;
+        document.getElementById('payButton').textContent = 'ОБРАБОТКА...';
+        
+        // Показываем статус ожидания
+        document.getElementById('cardForm').style.display = 'none';
+        document.getElementById('paymentPendingStatus').style.display = 'block';
+        
+        // Имитация обработки платежа
+        setTimeout(() => {
+            // Показываем статус успеха
+            document.getElementById('paymentPendingStatus').style.display = 'none';
+            document.getElementById('paymentSuccessStatus').style.display = 'block';
+            document.getElementById('orderNumberDisplay').textContent = currentOrderNumber;
+            
+            showToast('Оплата прошла успешно! Заказ принят.', 'success');
+            
+            // Завершаем заказ через 2 секунды
+            setTimeout(() => {
+                completeOrder();
+            }, 2000);
+        }, 2000);
+        
+    } else if (selectedPaymentMethod === 'kaspiQR') {
+        // Блокируем кнопку
+        document.getElementById('payButton').disabled = true;
+        document.getElementById('payButton').textContent = 'ОЖИДАНИЕ ОПЛАТЫ...';
+        
+        // Показываем статус ожидания
+        document.getElementById('qrContainer').style.display = 'none';
+        document.getElementById('paymentPendingStatus').style.display = 'block';
+        
+        showToast('Ожидание оплаты по QR-коду...', 'info');
+        
+        // Имитация ожидания оплаты по QR (5 секунд)
+        setTimeout(() => {
+            // Показываем статус успеха
+            document.getElementById('paymentPendingStatus').style.display = 'none';
+            document.getElementById('paymentSuccessStatus').style.display = 'block';
+            document.getElementById('orderNumberDisplay').textContent = currentOrderNumber;
+            
+            showToast('Оплата по QR-коду прошла успешно! Заказ принят.', 'success');
+            
+            // Завершаем заказ через 2 секунды
+            setTimeout(() => {
+                completeOrder();
+            }, 2000);
+        }, 5000);
+    }
+}
+
+function startTimer(orderNumber, durationMs) {
+    if (activeTimers[orderNumber]) {
+        clearInterval(activeTimers[orderNumber]);
+    }
+    
+    const timerEnd = Date.now() + durationMs;
+    const timerId = setInterval(() => {
+        const now = Date.now();
+        const remainingMs = Math.max(0, timerEnd - now);
+        const minutes = Math.floor(remainingMs / 60000);
+        const seconds = Math.floor((remainingMs % 60000) / 1000);
+        
+        const timeCell = document.querySelector(`tr[data-order="${orderNumber}"] .order-timer`);
+        if (timeCell) {
+            timeCell.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            if (remainingMs <= 0) {
+                clearInterval(timerId);
+                timeCell.textContent = 'Готов!';
+                const order = orderHistory.find(o => o.orderNumber === orderNumber);
+                if (order) {
+                    order.status = 'completed';
+                    localStorage.setItem('aktobeFanshopOrderHistory', JSON.stringify(orderHistory));
+                    renderHistory();
+                }
+            }
+        }
+        
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerStatus = document.getElementById('timerStatus');
+        
+        if (timerDisplay && timerStatus) {
+            timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (remainingMs <= 0) {
+                timerStatus.textContent = 'Ваш заказ готов!';
+            } else if (remainingMs <= 5 * 60 * 1000) {
+                timerStatus.textContent = 'Скоро будет готов...';
+            } else {
+                timerStatus.textContent = 'Ваш заказ готовится...';
+            }
+        }
+    }, 1000);
+    
+    activeTimers[orderNumber] = timerId;
+}
+
+function completeOrder() {
+    currentOrderNumber = 'ORD' + Date.now().toString().slice(-8);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const deliveryCost = currentOrderData.deliveryMethod === 'courier' ? 500 : 
+                        currentOrderData.deliveryMethod === 'post' ? 1000 : 0;
+    const totalAmount = totalPrice + deliveryCost;
+    
+    const order = {
+        orderNumber: currentOrderNumber,
+        date: new Date().toISOString(),
+        items: cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity
+        })),
+        customer: {
+            fullName: currentOrderData.fullName,
+            phone: currentOrderData.phone,
+            email: currentOrderData.email
+        },
+        delivery: {
+            city: currentOrderData.city,
+            address: currentOrderData.address,
+            type: currentOrderData.deliveryMethod
+        },
+        totalAmount: totalAmount,
+        paymentMethod: selectedPaymentMethod,
+        status: 'preparing',
+        timerEnd: Date.now() + (30 * 60 * 1000)
+    };
+    
+    orderHistory.unshift(order);
+    localStorage.setItem('aktobeFanshopOrderHistory', JSON.stringify(orderHistory));
+    
+    startTimer(currentOrderNumber, 30 * 60 * 1000);
+    document.getElementById('timerSection').style.display = 'block';
+    renderHistory();
+    
+    // Закрываем модальное окно оплаты
+    setTimeout(() => {
+        closePayment();
+        cart = [];
+        updateCart();
+        backToShop();
+        
+        // Показываем финальное сообщение
+        showToast(`✅ Ваш заказ №${currentOrderNumber} принят! Статус можно отслеживать в истории заказов.`, 'success');
+    }, 1000);
+}
+
+function renderHistory() {
+    const historyBody = document.getElementById('historyBody');
+    const noHistoryText = document.getElementById('noHistoryText');
+    
+    if (orderHistory.length === 0) {
+        historyBody.innerHTML = '';
+        noHistoryText.style.display = 'block';
+        return;
+    }
+    
+    noHistoryText.style.display = 'none';
+    let html = '';
+    
+    orderHistory.forEach(order => {
+        let itemsText = order.items.map(item => item.name).join(', ');
+        if (itemsText.length > 30) {
+            itemsText = itemsText.substring(0, 27) + '...';
+        }
+        
+        let deliveryText = order.delivery.type;
+        if (deliveryText === 'pickup') deliveryText = 'Самовывоз';
+        else if (deliveryText === 'courier') deliveryText = 'Курьер';
+        else if (deliveryText === 'post') deliveryText = 'Почта';
+        
+        let statusText = order.status;
+        if (statusText === 'preparing') statusText = 'Готовится';
+        else if (statusText === 'completed') statusText = 'Готов';
+        
+        let timeLeft = '';
+        if (order.status === 'preparing' && order.timerEnd) {
+            const remainingMs = Math.max(0, order.timerEnd - Date.now());
+            if (remainingMs > 0) {
+                const minutes = Math.floor(remainingMs / 60000);
+                const seconds = Math.floor((remainingMs % 60000) / 1000);
+                timeLeft = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                timeLeft = 'Готов!';
+            }
+        } else if (order.status === 'completed') {
+            timeLeft = 'Готов!';
+        }
+        
+        const orderDate = new Date(order.date);
+        const formattedDate = orderDate.toLocaleDateString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+        
+        html += `<tr data-order="${order.orderNumber}">
+            <td>${formattedDate}</td>
+            <td>${itemsText}</td>
+            <td>${deliveryText}</td>
+            <td>${order.totalAmount.toLocaleString()} ₸</td>
+            <td>${statusText}</td>
+            <td class="order-timer">${timeLeft}</td>
+        </tr>`;
+    });
+    
+    historyBody.innerHTML = html;
+    
+    orderHistory.forEach(order => {
+        if (order.status === 'preparing' && order.timerEnd) {
+            const remainingMs = Math.max(0, order.timerEnd - Date.now());
+            if (remainingMs > 0) {
+                startTimer(order.orderNumber, remainingMs);
+            }
+        }
+    });
+}
+
+function addReview() {
+    const name = document.getElementById('revName').value.trim();
+    const text = document.getElementById('revText').value.trim();
+    
+    if (!name || !text) {
+        showToast('Пожалуйста, введите имя и отзыв!', 'error');
+        return;
+    }
+    
+    const reviewList = document.getElementById('reviewList');
+    const reviewItem = document.createElement('div');
+    reviewItem.className = 'review-item';
+    reviewItem.innerHTML = `<b>${name}</b><p>${text}</p>`;
+    reviewList.prepend(reviewItem);
+    
+    document.getElementById('revName').value = '';
+    document.getElementById('revText').value = '';
+    
+    showToast('Спасибо за ваш отзыв!', 'success');
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    renderProducts();
+    
+    const savedHistory = localStorage.getItem('aktobeFanshopOrderHistory');
+    if (savedHistory) {
+        orderHistory = JSON.parse(savedHistory);
+        orderHistory.forEach(order => {
+            if (order.status === 'preparing' && order.timerEnd) {
+                const remainingTime = Math.max(0, order.timerEnd - Date.now());
+                if (remainingTime > 0) {
+                    startTimer(order.orderNumber, remainingTime);
+                } else {
+                    order.status = 'completed';
+                }
+            }
+        });
+        localStorage.setItem('aktobeFanshopOrderHistory', JSON.stringify(orderHistory));
+        renderHistory();
+    }
+    
+    const hasActiveOrder = orderHistory.some(order => order.status === 'preparing');
+    if (hasActiveOrder) {
+        document.getElementById('timerSection').style.display = 'block';
+    }
+    
+    // Закрытие меню при клике вне его
+    document.addEventListener('click', function(event) {
+        const nav = document.getElementById('mainNav');
+        const menuToggle = document.querySelector('.menu-toggle');
+        if (nav.classList.contains('active') && 
+            !nav.contains(event.target) && 
+            !menuToggle.contains(event.target)) {
+            nav.classList.remove('active');
+        }
+    });
+});
+</script>
+</body>
+</html>
